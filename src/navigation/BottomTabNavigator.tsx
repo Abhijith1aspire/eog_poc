@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
+import StackNavigator from './StackNavigator';
 
 const Tab = createBottomTabNavigator();
 
-// const Home = () => <View><Text>Home Screen</Text></View>;
 const Search = () => <View><Text>Search Screen</Text></View>;
 const DisParts = () => <View><Text>Dis Parts Screen</Text></View>;
 const Settings = () => <View><Text>Settings Screen</Text></View>;
@@ -34,7 +34,7 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={StackNavigator}
         options={{
           tabBarIcon: () => <Text>🏠</Text>, // Temp emoji or blank
           tabBarLabel: 'Home',

@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
-import SignaturePad from '../../genericComponents/SignaturePad';
-import { ScrollView } from 'react-native';
-import { Themes } from '../../utils/themes';
+import React, { useState, useCallback } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SignaturePad from '../../genericComponents/SignaturePad';
+import { Themes } from '../../utils/themes';
 
 const Home: React.FC = () => {
-  const [editing, setEditing] = React.useState(false);
+  const [editing, setEditing] = useState(false);
 
   const onSaveSignature = (sig: string | null) => {
-    //
+    // handle saved signature here
   };
 
-  const onBegin = React.useCallback(() => {
+  const onBegin = useCallback(() => {
     setEditing(true);
   }, []);
 
-  const onEnd = React.useCallback(() => {
+  const onEnd = useCallback(() => {
     setEditing(false);
   }, []);
 
-
   return (
-    <SafeAreaView style={{ flex: 1,width:'100%' }}>
+    <SafeAreaView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false} scrollEnabled={!editing}>
         <SignaturePad
           penColor="blue"
@@ -38,5 +37,11 @@ const Home: React.FC = () => {
   );
 };
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    borderWidth:1
+  },
+});
 
 export default Home;

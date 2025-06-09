@@ -336,14 +336,14 @@ const styles = StyleSheet.create({
     marginTop:moderateScale(10)
   },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: Themes.blue,
     width:moderateScale(50),
     height:moderateScale(25),
     borderRadius: moderateScale(5),
     justifyContent: 'center',
   alignItems: 'center',  
   },
-  buttonText: { color: '#fff' },
+  buttonText: { color: Themes.white },
   weekRange: { fontWeight: 'bold', fontSize: 16 },
   toggleContainer: {
     flexDirection: 'row',
@@ -359,13 +359,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 5,
   },
   activeButton: {
-    backgroundColor: '#007bff',
-    borderColor: '#007bff',
+    backgroundColor: Themes.blue,
+    borderColor: Themes.blue,
   },
-  toggleText: { color: '#fff', fontWeight: '600' },
+  toggleText: { color: Themes.white, fontWeight: '600' },
   installerColumn: {
     width: 100,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: Themes.smokeWhite,
   },
   installerCell: {
     height: 60,
@@ -419,7 +419,7 @@ const styles = StyleSheet.create({
   },
   eventText: {
     fontSize: 10,
-    color: '#fff',
+    color: Themes.white,
     fontWeight: '600',
     textAlign: 'center',
   },

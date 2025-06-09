@@ -6,19 +6,10 @@ import { Provider } from 'react-redux';
 import store from './store/store';
 
 const App = () => {
-  const [orientationKey, setOrientationKey] = useState(0);
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener('change', () => {
-      setOrientationKey(prev => prev + 1); 
-    });
-
-    return () => subscription?.remove?.(); 
-  }, []);
 
   return (
     <Provider store={store}>
-    <SafeAreaView style={{ flex: 1 }} key={orientationKey}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom']}>
       <AppNavigator />
     </SafeAreaView>
     </Provider>
