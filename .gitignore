@@ -73,3 +73,23 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# iOS
+ios/Pods/
+ios/Podfile.lock
+ios/*.xcworkspace
+ios/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Android
+android/.gradle
+android/.idea
+android/local.properties
+
+# Node
+node_modules/
+*.log
+
+# VSCode
+.vscode/
+
