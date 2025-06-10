@@ -3,12 +3,12 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../screens/Home';
 import StackNavigator from './StackNavigator';
+import SettingsScreen from '../screens/Setting';
+import PhotoUpload from '../screens/PhotoUpload';
 
 const Tab = createBottomTabNavigator();
 
 const Search = () => <View><Text>Search Screen</Text></View>;
-const DisParts = () => <View><Text>Dis Parts Screen</Text></View>;
-const Settings = () => <View><Text>Settings Screen</Text></View>;
 const Add = () => <View><Text>Add New Screen</Text></View>;
 
 const CustomTabBarButton = ({ children, onPress }: any) => (
@@ -36,9 +36,18 @@ const BottomTabNavigator = () => {
         name="Home"
         component={StackNavigator}
         options={{
-          tabBarIcon: () => <Text>🏠</Text>, // Temp emoji or blank
+          tabBarIcon: () => <Text>🏠</Text>, 
           tabBarLabel: 'Home',
         }}
+        listeners={({ navigation }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.reset({
+              index: 0,
+              routes: [{ name: 'Home' }],
+            });
+          },
+        })}
       />
       <Tab.Screen
         name="Search"
@@ -58,7 +67,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="DisParts"
-        component={DisParts}
+        component={PhotoUpload}
         options={{
           tabBarIcon: () => (
             <View>
@@ -74,7 +83,7 @@ const BottomTabNavigator = () => {
       />
       <Tab.Screen
         name="Settings"
-        component={Settings}
+        component={SettingsScreen}
         options={{
           tabBarIcon: () => <Text>⚙️</Text>,
           tabBarLabel: 'Settings',

@@ -36,11 +36,9 @@ const SignaturePad: React.FC<SignaturePadProps> = ({
   };
 
   const handleEmpty = () => {
-    console.log('Signature is empty');
   };
 
   const handleClear = () => {
-    console.log('Signature cleared');
     setSignature(null);
   };
 
