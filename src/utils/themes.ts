@@ -9,5 +9,8 @@ export const Themes = {
     smokeWhite:'#f5f5f5',
     black:"#000000",
     red:"#FF0000",
-    green:"#008000"
+    green:"#008000",
+    paleWhite:'#fafafa',
+    brightGray:"#eee"
+ 
 }

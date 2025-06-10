@@ -7,48 +7,48 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { moderateScale } from '../../utils/metrics';
+import { fontSize, moderateScale } from '../../utils/metrics';
 import { formatFullDateWithComma } from '../../utils/utils';
 import { Themes } from '../../utils/themes';
-
-
+ 
+ 
 const startOfWeek = (date: Date) => {
   const day = date.getDay();
   const diff = date.getDate() - day;
   return new Date(date.getFullYear(), date.getMonth(), diff);
 };
-
+ 
 const endOfWeek = (date: Date) => {
   const start = startOfWeek(date);
   return new Date(start.getFullYear(), start.getMonth(), start.getDate() + 6);
 };
-
+ 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 };
-
+ 
 const installers = [
   { id: '1', name: 'John Doe' },
   { id: '2', name: 'Jane Smith' },
   { id: '3', name: 'Mike Johnson' },
 ];
-
+ 
 const timeSlots = Array.from({ length: 12 }, (_, i) => `${8 + i}:00`);
-
+ 
 const dayViewEvents = [
   {
     title: 'Work A',
     installerId: '1',
     date: '2025-06-05',  
     time: '09:00',
-    status: 'Replacement', 
+    status: 'Replacement',
   },
   {
     title: 'Work B',
     installerId: '2',
     date: '2025-06-05',
     time: '11:00',
-    status: 'Repair', 
+    status: 'Repair',
   },
   {
     title: 'Work C',
@@ -58,13 +58,13 @@ const dayViewEvents = [
     status: 'Calibration',
   },
 ];
-
-
+ 
+ 
 const weekViewEvents = [
   {
     title: 'Work week A',
     installerId: '1',
-    date: '2025-06-06', 
+    date: '2025-06-06',
     status: 'Calibration',
   },
   {
@@ -80,25 +80,25 @@ const weekViewEvents = [
     status: 'Replacement',
   },
 ];
-
-
-
+ 
+ 
+ 
 const CalendarScreen = () => {
   const [viewMode, setViewMode] = useState<'day' | 'week'>('week');
   const [currentDate, setCurrentDate] = useState(new Date());
-
+ 
   const weekStart = startOfWeek(currentDate);
   const weekEnd = endOfWeek(currentDate);
   const weekRange = `${formatDate(weekStart)} - ${formatDate(weekEnd)}`;
-
- const goToPrev = () => {
+ 
+const goToPrev = () => {
   setCurrentDate(prev => {
     const d = new Date(prev);
     d.setDate(prev.getDate() - (viewMode === 'week' ? 7 : 1));
     return d;
   });
 };
-
+ 
 const goToNext = () => {
   setCurrentDate(prev => {
     const d = new Date(prev);
@@ -106,9 +106,9 @@ const goToNext = () => {
     return d;
   });
 };
-
-
- const renderDayView = () => {
+ 
+ 
+const renderDayView = () => {
   const getColorByStatus = (status: string) => {
     switch (status) {
       case 'Calibration':
@@ -121,35 +121,35 @@ const goToNext = () => {
         return '#BDBDBD'; // Grey fallback
     }
   };
-
+ 
   const currentDayString = currentDate.toDateString();
-
+ 
   // Filter events for selected day
 const filteredEvents = dayViewEvents.filter(event => {
   const eventDate = new Date(event.date);
   const [hours, minutes] = event.time.split(':').map(Number);
   eventDate.setHours(hours, minutes, 0, 0);
-
+ 
   // Compare eventDate's day with currentDate's day (ignore time part in comparison)
   return (
     eventDate.toDateString() === currentDate.toDateString()
   );
 });
-
-
-
+ 
+ 
+ 
   return (
     <View style={{ flexDirection: 'row', flex: 1 }}>
       {/* Installer Column */}
       <View style={styles.installerColumn}>
-      <View style={{ height: moderateScale(32),  borderColor: '#eee',borderWidth:0.5 }} />
+      <View style={{ height: moderateScale(32),  borderColor: Themes.brightGray,borderWidth:moderateScale(0.5) }} />
         {installers.map(installer => (
           <View key={installer.id} style={styles.installerCell}>
             <Text style={styles.installerText}>{installer.name}</Text>
           </View>
         ))}
       </View>
-
+ 
       {/* Time Grid */}
       <ScrollView horizontal style={{ flex: 1 }}>
         <View>
@@ -161,7 +161,7 @@ const filteredEvents = dayViewEvents.filter(event => {
               </View>
             ))}
           </View>
-
+ 
           {/* Event Rows */}
           {installers.map(installer => (
             <View key={installer.id} style={styles.installerRow}>
@@ -169,7 +169,7 @@ const filteredEvents = dayViewEvents.filter(event => {
                 const event = filteredEvents.find(
                   e => e.installerId === installer.id && e.time === time
                 );
-
+ 
                 return (
                   <View key={time} style={styles.timeCell}>
                     {event && (
@@ -192,8 +192,8 @@ const filteredEvents = dayViewEvents.filter(event => {
     </View>
   );
 };
-
-
+ 
+ 
   const renderWeekView = () => {
     const getColorByStatus = (status: string) => {
       switch (status) {
@@ -207,7 +207,7 @@ const filteredEvents = dayViewEvents.filter(event => {
         return '#BDBDBD'; // Grey fallback
     }
     };
-
+ 
     const daysOfWeek = Array.from({ length: 7 }).map((_, index) => {
       const date = new Date(weekStart);
       date.setDate(date.getDate() + index);
@@ -219,19 +219,20 @@ const filteredEvents = dayViewEvents.filter(event => {
         value: date.toISOString().split('T')[0],
       };
     });
-
+ 
     return (
       <View style={{ flexDirection: 'row', flex: 1 }}>
-        <View style={{ height: 60, borderBottomWidth: 1, borderColor: '#ccc' }} />
+        <View style={{ height: moderateScale(60), borderBottomWidth: moderateScale(1), borderColor: Themes.lightGray }} />
         {/* Installer Column */}
         <View style={styles.installerColumn}>
+      <View style={{ height: moderateScale(32),  borderColor: Themes.brightGray,borderWidth:moderateScale(0.5) }} />
           {installers.map(installer => (
             <View key={installer.id} style={styles.installerCell}>
               <Text style={styles.installerText}>{installer.name}</Text>
             </View>
           ))}
         </View>
-
+ 
         {/* Days Grid */}
         <ScrollView horizontal style={{ flex: 1 }}>
           <View>
@@ -243,7 +244,7 @@ const filteredEvents = dayViewEvents.filter(event => {
                 </View>
               ))}
             </View>
-
+ 
             {/* Grid Rows */}
             {installers.map(installer => (
               <View key={installer.id} style={styles.installerRow}>
@@ -253,7 +254,7 @@ const filteredEvents = dayViewEvents.filter(event => {
                       e.installerId === installer.id &&
                       e.date === day.value,
                   );
-
+ 
                   return (
                     <View key={day.value} style={styles.timeCell}>
                       {event && (
@@ -276,8 +277,8 @@ const filteredEvents = dayViewEvents.filter(event => {
       </View>
     );
   };
-
-
+ 
+ 
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -285,18 +286,18 @@ const filteredEvents = dayViewEvents.filter(event => {
         <TouchableOpacity onPress={goToPrev} style={styles.button}>
           <Text style={styles.buttonText}>Prev</Text>
         </TouchableOpacity>
-
+ 
         <Text style={styles.weekRange}>
   {viewMode === 'week'
     ? `${formatDate(startOfWeek(currentDate))} - ${formatDate(endOfWeek(currentDate))}`
     : formatFullDateWithComma(currentDate.toDateString())}
 </Text>
-
+ 
         <TouchableOpacity onPress={goToNext} style={styles.button}>
           <Text style={styles.buttonText}>Next</Text>
         </TouchableOpacity>
       </View>
-
+ 
       {/* Toggle View */}
       <View style={styles.toggleContainer}>
         <TouchableOpacity
@@ -312,22 +313,22 @@ const filteredEvents = dayViewEvents.filter(event => {
           <Text style={[styles.toggleText,viewMode === 'day'&&{color:Themes.darkGray}]}>Week</Text>
         </TouchableOpacity>
       </View>
-
+ 
       {/* Calendar View */}
       {viewMode === 'week' ? (
         renderWeekView()
       ) : (
         renderDayView()
       )}
-
+ 
     </SafeAreaView>
   );
 };
-
+ 
 export default CalendarScreen;
-
+ 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 10 },
+  container: { flex: 1,padding:moderateScale(10)},
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -344,19 +345,19 @@ const styles = StyleSheet.create({
   alignItems: 'center',  
   },
   buttonText: { color: Themes.white },
-  weekRange: { fontWeight: 'bold', fontSize: 16 },
+  weekRange: { fontWeight: 'bold', fontSize: fontSize.px16 },
   toggleContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginVertical: 10,
+    marginVertical: moderateScale(10),
   },
   toggleButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    marginHorizontal: 5,
+    paddingVertical: moderateScale(6),
+    paddingHorizontal: moderateScale(16),
+    borderRadius: moderateScale(6),
+    borderWidth: moderateScale(1),
+    borderColor: Themes.lightGray,
+    marginHorizontal: moderateScale(5),
   },
   activeButton: {
     backgroundColor: Themes.blue,
@@ -364,64 +365,65 @@ const styles = StyleSheet.create({
   },
   toggleText: { color: Themes.white, fontWeight: '600' },
   installerColumn: {
-    width: 100,
+    width: moderateScale(100),
     backgroundColor: Themes.smokeWhite,
   },
   installerCell: {
-    height: 60,
+    height: moderateScale(60),
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderColor: '#eee',
-    borderWidth:1
+    borderBottomWidth: moderateScale(1),
+    borderColor: Themes.brightGray,
+    borderWidth:moderateScale(1)
   },
   installerText: {
     fontWeight: '500',
-    fontSize: 13,
+    fontSize: fontSize.px13,
     textAlign: 'center',
   },
-
+ 
   timeHeaderRow: {
     flexDirection: 'row',
-    backgroundColor: '#fafafa',
-    borderBottomWidth: 1,
-    borderColor: '#eee',
+    backgroundColor: Themes.paleWhite,
+    borderBottomWidth: moderateScale(1),
+    borderColor: Themes.brightGray,
     borderWidth:1,
     height:moderateScale(32),
   },
   timeHeaderCell: {
-    width: 80,
-    paddingVertical: 8,
+    width: moderateScale(80),
+    paddingVertical: moderateScale(8),
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#eee',
-    borderWidth:1
+    borderColor: Themes.brightGray,
+    borderWidth:moderateScale(1)
   },
-  timeText: { fontSize: 12 },
-
+  timeText: { fontSize: fontSize.px12 },
+ 
   installerRow: {
     flexDirection: 'row',
-    height: 60,
+    height: moderateScale(60),
   },
   timeCell: {
-    width: 80,
+    width: moderateScale(80),
     borderWidth:1,
-    borderColor: '#eee',
+    borderColor: Themes.brightGray,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
+ 
   eventBox: {
-    paddingVertical: 4,
-    paddingHorizontal: 6,
-    borderRadius: 4,
-    minWidth: 60,
+    paddingVertical: moderateScale(4),
+    paddingHorizontal: moderateScale(6),
+    borderRadius: moderateScale(4),
+    minWidth: moderateScale(60),
   },
   eventText: {
-    fontSize: 10,
+    fontSize: fontSize.px10,
     color: Themes.white,
     fontWeight: '600',
     textAlign: 'center',
   },
-
+ 
 });
+ 
