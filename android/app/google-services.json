@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "727281911988",
+    "project_id": "eagpoc-99f4d",
+    "storage_bucket": "eagpoc-99f4d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727281911988:android:8d7c6e49ceef0420036fe1",
+        "android_client_info": {
+          "package_name": "com.poc"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc4pQBJJ5mMS05weJrw0dQVqYImNJ437A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

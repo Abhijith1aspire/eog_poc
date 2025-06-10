@@ -5,6 +5,7 @@ import Home from '../screens/Home';
 import StackNavigator from './StackNavigator';
 import SettingsScreen from '../screens/Setting';
 import PhotoUpload from '../screens/PhotoUpload';
+import { Themes } from '../utils/themes';
 
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +62,8 @@ const BottomTabNavigator = () => {
         name="Add"
         component={Add}
         options={{
-          tabBarIcon: () => <Text style={{ color: '#fff', fontSize: 24 }}>+</Text>,
+          tabBarIcon: () => <Text style={{ color: Themes.white, fontSize: 30,top:-5 }}>+</Text>,
+          tabBarLabel: () => null,
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
       />
@@ -95,7 +97,7 @@ const BottomTabNavigator = () => {
 
 const styles = StyleSheet.create({
   customButton: {
-    top: -20,
+    top: 5,
     justifyContent: 'center',
     alignItems: 'center',
   },
