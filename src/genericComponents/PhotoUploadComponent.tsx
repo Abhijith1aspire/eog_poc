@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View, Text, TouchableOpacity, Image, FlatList, ScrollView, useWindowDimensions,
   SafeAreaView
@@ -9,6 +9,7 @@ import { Themes } from '../utils/themes';
 import i18n from '../utils/i18n';
 import ToastMessage from './ToastMessage';
 import { useTheme } from '../utils/ThemeContext';
+import { FBAnalyticsEvent, FBAnalyticsViewItem, trackCustomEvent, trackScreenView, trackViewItem } from '../utils/FirebaseAnalyticsEventTracker';
 
 interface UploadItem {
   label: string;
@@ -48,6 +49,40 @@ const PhotoUploadComponent: React.FC<PhotoUploadProps> = ({
   const multiItemWidth = (width - 32 - multiNumColumns * 10) / multiNumColumns;
 
 
+ useEffect(() => {
+    trackScreenView({
+      screen_name: 'PhotoUploadScreen',
+      screen_class: 'PhotoUpload',
+    });
+  }, []);
+
+  const handleViewProduct = async () => {
+    const product: FBAnalyticsViewItem = {
+      item_id: 'P12345',
+      item_name: 'Glass',
+      item_brand: 'Transparent',
+      item_category: 'R1',
+      quantity: 1,
+      price: 4999,
+    };
+
+    await trackViewItem(product);
+    console.log('Product view event logged');
+  };
+
+  const handleAddToCart = async () => {
+    await trackCustomEvent(FBAnalyticsEvent.AddToCart, {
+      item_id: 'P12345',
+      item_name: 'Demo Glass',
+      item_category: 'Classic',
+      quantity: 1,
+      price: 4999,
+    });
+    console.log('Add to cart event logged');
+  };
+
+
+
   const { colors } = useTheme();
 
   const checkImageSize = async (fileSize: number): Promise<boolean> => {
@@ -80,6 +115,7 @@ const PhotoUploadComponent: React.FC<PhotoUploadProps> = ({
   };
 
   const selectMultiImages = async () => {
+    handleAddToCart()
     const remaining = imageLimit - multiImages.length;
     if (remaining <= 0) return;
 

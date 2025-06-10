@@ -62,7 +62,7 @@ const BottomTabNavigator = () => {
         name="Add"
         component={Add}
         options={{
-          tabBarIcon: () => <Text style={{ color: Themes.white, fontSize: 30,top:-5 }}>+</Text>,
+          tabBarIcon: () => <Text style={{ color: Themes.white, fontSize: 23,top:-5 }}>+</Text>,
           tabBarLabel: () => null,
           tabBarButton: (props) => <CustomTabBarButton {...props} />,
         }}
@@ -102,8 +102,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   innerButton: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     borderRadius: 30,
     backgroundColor: '#002D72',
     justifyContent: 'center',
